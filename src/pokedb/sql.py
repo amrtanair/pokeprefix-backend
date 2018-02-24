@@ -52,7 +52,7 @@ def find_prefix(session,inet6num):
 def do_location_check(session,location,radius):
     # This is a stub; will check if there are points within $radius of
     # $location
-    return None
+    return False
 
 def insert_season(session,name,date_start,date_end):
     new_season = Season(name=name,date_start=date_start,date_end=date_end)
