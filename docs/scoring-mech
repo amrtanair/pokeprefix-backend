@@ -1,0 +1,7 @@
+Desc                       new user same user
+new location new prefix    50       20                
+new location same prefix   40       15                
+same location new prefix   40       15                
+same locatio same prefix   30       10                
+new prefix name            20       10        owner of prefix get 5 points        
+same prefix name           10       5                
