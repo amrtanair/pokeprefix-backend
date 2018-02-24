@@ -23,7 +23,7 @@
 
 
 
-        <form class="form-labels-on-top" method="post" action="#">
+        <form id="sign_up" class="form-labels-on-top" method="post" action="./sign_up">
 
               <div class="form-title-row">
                         <h1>Create an account</h1>
@@ -53,7 +53,12 @@
                  
 
                     <div class="form-row">
-                        <button type="submit">Register</button>
+  <input type="button" onclick="myFunction()" value="Submit">
+
+                    </div>
+
+		<div class="form-row">
+		<span>Already a member ?</span> <a href="sign_in.html"> Sign in</a>
                     </div>
 
                 </div>
@@ -63,7 +68,11 @@
         </form>
 
     </div>
-
+<script>
+function myFunction() {
+    document.getElementById("sign_up").submit();
+}
+</script>
 </body>
 
 </html>
