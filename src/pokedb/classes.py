@@ -17,10 +17,20 @@ class Account(Base):
     country_code = Column(String(2))
     active = Column(Boolean)
 
-class Word(Base):
-    __tablename__ = 'word'
+class Adjective(Base):
+    __tablename__ ='adjective'
     id = Column(Integer, primary_key=True)
-    name = Column(String(20), nullable=False)
+    text = Column(String(20), nullable=False)
+
+class Color(Base):
+    __tablename__ = 'color'
+    id = Column(Integer, primary_key=True)
+    text = Column(String(20), nullable=False)
+
+class Noun(Base):
+    __tablename__ = 'noun'
+    id = Column(Integer, primary_key=True)
+    text = Column(String(20), nullable=False)
 
 class Season(Base):
     __tablename__ = 'season'
@@ -41,11 +51,16 @@ class Prefix(Base):
 class Name(Base):
     __tablename__ = 'name'
     id = Column(Integer, primary_key=True)
-    word_1_id = Column(Integer)
-    word_2_id = Column(Integer)
-    word_3_id = Column(Integer)
+    word_1_id = Column(Integer, ForeignKey('adjective.id'))
+    word_1 = relationship(Adjective)
+    word_2_id = Column(Integer, ForeignKey('color.id'))
+    word_2 = relationship(Color)
+    word_3_id = Column(Integer, ForeignKey('noun.id'))
+    word_3 = relationship(Noun)
     prefix_id = Column(Integer, ForeignKey('prefix.id'))
     prefix = relationship(Prefix)
+    account_id = Column(Integer, ForeignKey('account.id'))
+    account = relationship(Account)
 
 class Observation(Base):
     __tablename__ = 'observation'
