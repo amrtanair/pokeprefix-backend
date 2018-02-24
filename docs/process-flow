@@ -16,6 +16,11 @@ Submit prefix
   +-: Calculate points
   +-: Supply list of name choices
   +-: Upon choice, insert into database and assign points to account
+
+List prefixes
+- window size 10, date-sort, current_season context
+- Default 1-10
+- contextes: season, window-start, 
   
 Ranking-lists:
 - Global ranking
