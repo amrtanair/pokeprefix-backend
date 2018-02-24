@@ -19,16 +19,22 @@ observation:
 id			: primary key
 prefix_id		: foreign_key 'prefix.id'
 season_id		: foreign_key 'season.id'
+account_id  : foreign_key 'account.id'
+location		: geo-location
+point       : int
 
 name:
 id			: primary key
-name			: hex24
-prefix_id		: foreign_key 'prefix
+name_1			: foreign_key words.id
+name_2			: foreign_key words.id
+name_3			: foreign_key words.id
+prefix_id		: foreign_key 'prefix.id'
 
 score:
 id			: primary key
 account_id		: foreign_key 'account.id'
 season_id		: foreign_key 'season.id'
+value       : int
 
 season:
 id			: primary key
@@ -36,8 +42,6 @@ name			: varchar(100)
 period_start		: date
 period_duration		: int (days)
 
-location-prefix-pivot:
-id			: primary key
-location		: geo-location
-prefix_id		: foreign_key: 'prefix.id'
-
+words:
+id:  primary key
+name : varchar(20)
