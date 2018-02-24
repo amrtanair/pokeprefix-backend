@@ -27,7 +27,7 @@ class Season(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(255), nullable=False)
     period_start = Column(DateTime, nullable=False)
-    period_duration = Column(DateTime, nullable=False)
+    period_end = Column(DateTime, nullable=False)
 
 class Prefix(Base):
     __tablename__ = 'prefix'
@@ -41,9 +41,9 @@ class Prefix(Base):
 class Name(Base):
     __tablename__ = 'name'
     id = Column(Integer, primary_key=True)
-    name_1_id = Column(Integer)
-    name_2_id = Column(Integer)
-    name_3_id = Column(Integer)
+    word_1_id = Column(Integer)
+    word_2_id = Column(Integer)
+    word_3_id = Column(Integer)
     prefix_id = Column(Integer, ForeignKey('prefix.id'))
     prefix = relationship(Prefix)
 

@@ -42,7 +42,7 @@ season:
 id			: primary key
 name			: varchar(100)
 period_start		: datetime
-period_duration		: int (days)
+period_end		: datetime
 
 word:
 id:  primary key
