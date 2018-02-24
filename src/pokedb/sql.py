@@ -1,5 +1,6 @@
 import builtins
 import sqlalchemy
+import random
 
 from sqlalchemy import create_engine,desc,func
 from sqlalchemy.orm import sessionmaker
@@ -55,7 +56,7 @@ def do_location_check(session,location,radius):
     return False
 
 def insert_season(session,name,date_start,date_end):
-    new_season = Season(name=name,date_start=date_start,date_end=date_end)
+    new_season = Season(name=name,period_start=date_start,period_end=date_end)
     session.add(new_season)
     session.commit()
     return(new_season)
@@ -110,16 +111,19 @@ def add_score(session,account_id,season_id):
     return(new_score)
 
 def give_random_name(session):
-    adjective_max = session.query(func.max(Adjective.id)).scalar()
-    color_max = session.query(func.max(Color.id)).scalar()
-    noun_max = session.query(func.max(Noun.id)).scalar()
-    adjective_rand=random.randint(0,adjective_max)
-    color_rand = random.randint(0,color_max)
-    noun_rand = random.randit(0,noun_max)
+    #adjective_max = session.query(func.max(Adjective.id)).first().scalar()
+    #color_max = session.query(func.max(Color.id)).scalar()
+    #noun_max = session.query(func.max(Noun.id)).scalar()
+    adjective_max = 45
+    color_max= 142
+    noun_max = 40
+    adjective_rand=random.randint(1,adjective_max)
+    color_rand = random.randint(1,color_max)
+    noun_rand = random.randint(1,noun_max)
     return([adjective_rand,color_rand,noun_rand])
 
 def id2name(session,adjective_id,color_id,noun_id):
-    adjective_q =session.query(Adjective).filter(Adjective.id==adjective.id)
-    color_q = session.query(Color).filter(Color.id==color.id)
-    noun_q = session.query(Noun).filter(Noun.id==noun.id)
-    return("%s%s%s" % (adjective_q.first().text,color_q.first().text,noun_q.firsfirst().text))
+    adjective_q =session.query(Adjective).filter(Adjective.id==adjective_id)
+    color_q = session.query(Color).filter(Color.id==color_id)
+    noun_q = session.query(Noun).filter(Noun.id==noun_id)
+    return("%s%s%s" % (adjective_q.first().text,color_q.first().text,noun_q.first().text))

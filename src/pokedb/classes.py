@@ -72,7 +72,7 @@ class Observation(Base):
     account_id = Column(Integer, ForeignKey('account.id'))
     account = relationship(Account)
     location = Column(String(255),nullable=False)
-    points = int
+    points = Column(Integer, default=0)
     points_reason = Column(String(255))
 
 class Score(Base):
