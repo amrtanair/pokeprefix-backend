@@ -20,9 +20,10 @@ observation:
 id			: primary key
 prefix_id		: foreign_key 'prefix.id'
 season_id		: foreign_key 'season.id'
-account_id  : foreign_key 'account.id'
+account_id  		: foreign_key 'account.id'
 location		: geo-location
-point       : int
+point       		: int
+point_reason		: varchar(255)
 
 name:
 id			: primary key
