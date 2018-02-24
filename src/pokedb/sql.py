@@ -1,5 +1,6 @@
 import builtins
 import sqlalchemy
+import random
 
 from sqlalchemy import create_engine,desc,func
 from sqlalchemy.orm import sessionmaker
@@ -33,8 +34,8 @@ def find_account(session,nickname):
     else:
         return None
 
-def insert_prefix(session,inet6num,name_id,date_now,season_id):
-    new_prefix = Prefix(inet6num=inet6num,name_id=name_id,
+def insert_prefix(session,prefix,date_now,season_id):
+    new_prefix = Prefix(prefix=prefix,
                         date_seen_first=date_now, date_seen_last=date_now,
                         season_first_seen_id=season_id)
     session.add(new_prefix)
@@ -56,7 +57,7 @@ def do_location_check(session,location,radius):
     return False
 
 def insert_season(session,name,date_start,date_end):
-    new_season = Season(name=name,date_start=date_start,date_end=date_end)
+    new_season = Season(name=name,period_start=date_start,period_end=date_end)
     session.add(new_season)
     session.commit()
     return(new_season)
@@ -64,25 +65,25 @@ def insert_season(session,name,date_start,date_end):
 def insert_name(session,word_1_id,word_2_id,word_3_id,prefix_id,account_id):
     new_name = Name(word_1_id=word_1_id, word_2_id=word_2_id,
                     word_3_id=word_3_id, prefix_id=prefix_id,
-                    account_id=acount_id)
+                    account_id=account_id)
     session.add(new_name)
     session.commit()
     return(new_name)
 
-def find_name(word_1_id,word_2_id,word_3_id):
+def find_name(session,word_1_id,word_2_id,word_3_id):
     name_q=session.query(Name).filter(Name.word_1_id==word_1_id).filter(Name.word_2_id==word_2_id).filter(Name.word_3_id==word_3_id)
     if name_q.count() > 0:
         return(name_q.first())
     else:
         return None
 
-def insert_word(name):
+def insert_word(session,name):
     new_word = Word(name=name)
     session.add(new_word)
     session.commit()
     return(new_word)
 
-def insert_observation(prefix_id,season_id,account_id,location,points,points_reason):
+def insert_observation(session,prefix_id,season_id,account_id,location,points,points_reason):
     new_observation = Observation(prefix_id=prefix_id, season_id=season_id,
                                   account_id=account_id, location=location,
                                   points=points,points_reason=points_reason)
@@ -111,21 +112,24 @@ def add_score(session,account_id,season_id):
     return(new_score)
 
 def give_random_name(session):
-    adjective_max = session.query(func.max(Adjective.id)).scalar()
-    color_max = session.query(func.max(Color.id)).scalar()
-    noun_max = session.query(func.max(Noun.id)).scalar()
-    adjective_rand=random.randint(0,adjective_max)
-    color_rand = random.randint(0,color_max)
-    noun_rand = random.randit(0,noun_max)
+    #adjective_max = session.query(func.max(Adjective.id)).first().scalar()
+    #color_max = session.query(func.max(Color.id)).scalar()
+    #noun_max = session.query(func.max(Noun.id)).scalar()
+    adjective_max = 45
+    color_max= 142
+    noun_max = 40
+    adjective_rand=random.randint(1,adjective_max)
+    color_rand = random.randint(1,color_max)
+    noun_rand = random.randint(1,noun_max)
     return([adjective_rand,color_rand,noun_rand])
 
 def id2name(session,adjective_id,color_id,noun_id):
-    adjective_q =session.query(Adjective).filter(Adjective.id==adjective.id)
-    color_q = session.query(Color).filter(Color.id==color.id)
-    noun_q = session.query(Noun).filter(Noun.id==noun.id)
-    return("%s%s%s" % (adjective_q.first().text,color_q.first().text,noun_q.firsfirst().text))
+    adjective_q =session.query(Adjective).filter(Adjective.id==adjective_id)
+    color_q = session.query(Color).filter(Color.id==color_id)
+    noun_q = session.query(Noun).filter(Noun.id==noun_id)
+    return("%s%s%s" % (adjective_q.first().text,color_q.first().text,noun_q.first().text))
 
-def count_score(account_id,word1_id,word2_id,word3_id,inet6num,location):
+def count_score(session,account_id,word1_id,word2_id,word3_id,inet6num,location):
     session_score = 0
     session_reason = ""
     if report_global_score(session,account_id) > 0:
