@@ -1,9 +1,10 @@
 account:
 id			: primary key
 nickname		: varchar(20)
-date_joined		: date
-date_last_submission	: date
-date_last_seen		: date
+auth_token		: varchar(255)
+date_joined		: datetime
+date_last_submission	: datetime
+date_last_seen		: datetime
 country_code		: varchar(3)
 active			: bool
 
@@ -11,8 +12,8 @@ prefix:
 id			: primary key
 prefix			: inet6num
 name_id			: foreign_key 'name.id'
-date_seen_first		: date
-date_seen_last		: date
+date_seen_first		: datetime
+date_seen_last		: datetime
 season_first_seen	: foreign_key 'season.id'
 
 observation:
@@ -39,7 +40,7 @@ value       : int
 season:
 id			: primary key
 name			: varchar(100)
-period_start		: date
+period_start		: datetime
 period_duration		: int (days)
 
 words:
