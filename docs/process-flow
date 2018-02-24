@@ -1,0 +1,28 @@
+Tasks:
+
+Account-creation
+- Submit account
+-- Taken?
+--- Y: Return to account-creation
+--- N: Accept account; confirm
+
+Submit prefix
+- Known by anyone?
+: Yes: already seen by user ?
+| |
++ +-- Y: Do not get score
+| +-- N: Calculate score, assign score, report known
++-No: Not know by anyone!
+  +-: Calculate points
+  +-: Supply list of name choices
+  +-: Upon choice, insert into database and assign points to account
+  
+Ranking-lists:
+- Global ranking
+- Monthly ranking
+-- Window-size: 10
+-- Default: 1-10, Monthly Ranking
+
+Future work:
+- Heatmap of prefix-distribution in your area ?
+
