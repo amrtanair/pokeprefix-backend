@@ -4,6 +4,7 @@ nickname		: varchar(20)
 date_joined		: date
 date_last_submission	: date
 date_last_seen		: date
+country_code		: varchar(3)
 active			: bool
 
 prefix:
