@@ -65,7 +65,7 @@ def insert_season(session,name,date_start,date_end):
 def insert_name(session,word_1_id,word_2_id,word_3_id,prefix_id,account_id):
     new_name = Name(word_1_id=word_1_id, word_2_id=word_2_id,
                     word_3_id=word_3_id, prefix_id=prefix_id,
-                    account_id=acount_id)
+                    account_id=account_id)
     session.add(new_name)
     session.commit()
     return(new_name)
