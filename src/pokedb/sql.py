@@ -34,8 +34,8 @@ def find_account(session,nickname):
     else:
         return None
 
-def insert_prefix(session,inet6num,name_id,date_now,season_id):
-    new_prefix = Prefix(inet6num=inet6num,name_id=name_id,
+def insert_prefix(session,inet6num,date_now,season_id):
+    new_prefix = Prefix(inet6num=inet6num,
                         date_seen_first=date_now, date_seen_last=date_now,
                         season_first_seen_id=season_id)
     session.add(new_prefix)
