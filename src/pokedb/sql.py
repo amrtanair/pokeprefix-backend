@@ -70,20 +70,20 @@ def insert_name(session,word_1_id,word_2_id,word_3_id,prefix_id,account_id):
     session.commit()
     return(new_name)
 
-def find_name(word_1_id,word_2_id,word_3_id):
+def find_name(session,word_1_id,word_2_id,word_3_id):
     name_q=session.query(Name).filter(Name.word_1_id==word_1_id).filter(Name.word_2_id==word_2_id).filter(Name.word_3_id==word_3_id)
     if name_q.count() > 0:
         return(name_q.first())
     else:
         return None
 
-def insert_word(name):
+def insert_word(session,name):
     new_word = Word(name=name)
     session.add(new_word)
     session.commit()
     return(new_word)
 
-def insert_observation(prefix_id,season_id,account_id,location,points,points_reason):
+def insert_observation(session,prefix_id,season_id,account_id,location,points,points_reason):
     new_observation = Observation(prefix_id=prefix_id, season_id=season_id,
                                   account_id=account_id, location=location,
                                   points=points,points_reason=points_reason)
@@ -129,7 +129,7 @@ def id2name(session,adjective_id,color_id,noun_id):
     noun_q = session.query(Noun).filter(Noun.id==noun_id)
     return("%s%s%s" % (adjective_q.first().text,color_q.first().text,noun_q.first().text))
 
-def count_score(account_id,word1_id,word2_id,word3_id,inet6num,location):
+def count_score(session,account_id,word1_id,word2_id,word3_id,inet6num,location):
     session_score = 0
     session_reason = ""
     if report_global_score(session,account_id) > 0:
