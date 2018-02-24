@@ -1,35 +1,42 @@
 account:
-id
-nickname
-date_joined
-date_last_submission
-date_last_seen
-active
+id			: primary key
+nickname		: varchar(20)
+date_joined		: date
+date_last_submission	: date
+date_last_seen		: date
+active			: bool
 
-prefix
-id
-prefix
-global_seen
+prefix:
+id			: primary key
+prefix			: inet6num
+name_id			: foreign_key 'name.id'
+date_seen_first		: date
+date_seen_last		: date
+season_first_seen	: foreign_key 'season.id'
 
-observation
-id
-prefix_id
-season_id
+observation:
+id			: primary key
+prefix_id		: foreign_key 'prefix.id'
+season_id		: foreign_key 'season.id'
 
-names
-id
-name
-prefix_id
+name:
+id			: primary key
+name			: hex24
+prefix_id		: foreign_key 'prefix
 
-scores
-id
-account_id
-season_id
+score:
+id			: primary key
+account_id		: foreign_key 'account.id'
+season_id		: foreign_key 'season.id'
 
-season
-id
-name
-period_start
-period_duration
+season:
+id			: primary key
+name			: varchar(100)
+period_start		: date
+period_duration		: int (days)
 
+location-prefix-pivot:
+id			: primary key
+location		: geo-location
+prefix_id		: foreign_key: 'prefix.id'
 
