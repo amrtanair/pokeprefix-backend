@@ -46,8 +46,13 @@ def find_prefix(session,inet6num):
     prefix_q = session.query(Prefix).filter(prefix==inet6num)
     if prefix_q.count() > 0:
         return(prefix_q.first())
-    else
+    else:
         return None
+
+def do_location_check(session,location,radius):
+    # This is a stub; will check if there are points within $radius of
+    # $location
+    return None
 
 def insert_season(session,name,date_start,date_end):
     new_season = Season(name=name,date_start=date_start,date_end=date_end)
@@ -66,7 +71,7 @@ def find_name(word_1_id,word_2_id,word_3_id):
     name_q=session.query(Name).filter(Name.word_1_id==word_1_id).filter(Name.word_2_id==word_2_id).filter(Name.word_3_id==word_3_id)
     if name_q.count() > 0:
         return(name_q.first())
-    else
+    else:
         return None
 
 def insert_word(name):
@@ -87,7 +92,7 @@ def report_season_score(session,season_id,account_id):
     season_score_q=session.query(Score).filter(Score.account_id==account_id).filter(Score.season_id==season_id)
     if season_score_q.count() > 0:
         return(season_score.first().value)
-    else
+    else:
         return(0)
 
 def report_global_score(session,account_id):
