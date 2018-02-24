@@ -8,6 +8,7 @@ from sqlalchemy.orm import sessionmaker
 from pokedb.classes import Base,Account,Prefix,Observation,Name,Score,Season,Adjective,Color,Noun
 
 engine = create_engine('sqlite:///%s' % 'data/pokedb.db')
+check_distance = 6
 
 def connectdb():
     DBSession = sessionmaker(bind=engine)
@@ -127,3 +128,34 @@ def id2name(session,adjective_id,color_id,noun_id):
     color_q = session.query(Color).filter(Color.id==color_id)
     noun_q = session.query(Noun).filter(Noun.id==noun_id)
     return("%s%s%s" % (adjective_q.first().text,color_q.first().text,noun_q.first().text))
+
+def count_score(account_id,word1_id,word2_id,word3_id,inet6num,location):
+    session_score = 0
+    session_reason = ""
+    if report_global_score(session,account_id) > 0:
+        session_score = session_score + 5
+        session_reason = "Existing User"
+    else:
+        session_score = session_score + 10
+        session_reason = "Newbie"
+    if find_prefix(session,inet6num) is not None:
+        session_score = session_score + 5
+        session_reason = session_reason + " Seen Prefix"
+    else:
+        session_score = session_score + 10
+        session_reason = session_reason + " UnSeen Prefix"
+    if do_location_check(session,location,check_distance) == True:
+        session_score = session_score + 5
+        session_reason = session_reason + " Discovered Location"
+    else:
+        session_score = session_score + 10
+        session_reason = session_reason + " UnDiscovered Location"
+    if find_name(word_1_id,word_2_id,word_3_id) is True:
+        session_score = session_score + 10
+        session_reason = session_reason + " New Prefix Name"
+    else:
+        session_score = session_score + 5
+        session_reason = session_reason + " Used Prefix Name"
+
+# Other score awarding for Using someone else's name needs to be designed
+    return(account_id,session_score,session_reason) 
