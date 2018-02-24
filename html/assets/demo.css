@@ -14,17 +14,14 @@ body{
 	font:14px/1.5 Arial, Helvetica, sans-serif;
 	margin:0;
 }
-
-
 header{
     box-sizing: border-box;
-	text-align: center;
+    text-align: center;
     width: 100%;
     padding: 25px 40px;
-    background-color: #673AB7;
+    background-color: default;
     overflow: hidden;
 }
-
 
 header h1{
     float: left;
@@ -38,12 +35,13 @@ header a{
     text-decoration: none;
     display: inline-block;
     padding: 13px 50px;
-    border-radius: 3px;
+    border-radius: 30px;
     font: bold 14px/1 'Open Sans', sans-serif;
     text-transform: uppercase;
     background-color:#F05283;
 
 }
+
 
 ul {
     list-style: none;
@@ -105,7 +103,13 @@ ul li{
     margin-bottom: 75px;
 }
 
-/* -- Demo ads -- */
+.custom1
+{
+margin-top: 150px;
+text-align: center;
+
+}
+
 
 @media (max-width: 1200px) {
 	#bsaHolder{ display:none;}
