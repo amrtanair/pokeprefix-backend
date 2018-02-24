@@ -1,12 +1,12 @@
 import builtins
 import sqlalchemy
 
-from sqlalchemy import create_engine,desc
+from sqlalchemy import create_engine,desc,func
 from sqlalchemy.orm import sessionmaker
 
-from pokedb.classes import Base,Account,Prefix,Observation,Name,Score,Season,Word
+from pokedb.classes import Base,Account,Prefix,Observation,Name,Score,Season,Adjective,Color,Noun
 
-engine = create_engine('sqlite:///%s' % 'pokedb.db')
+engine = create_engine('sqlite:///%s' % 'data/pokedb.db')
 
 def connectdb():
     DBSession = sessionmaker(bind=engine)
@@ -60,9 +60,10 @@ def insert_season(session,name,date_start,date_end):
     session.commit()
     return(new_season)
 
-def insert_name(session,word_1_id,word_2_id,word_3_id,prefix_id):
+def insert_name(session,word_1_id,word_2_id,word_3_id,prefix_id,account_id):
     new_name = Name(word_1_id=word_1_id, word_2_id=word_2_id,
-                    word_3_id=word_3_id, prefix_id=prefix_id)
+                    word_3_id=word_3_id, prefix_id=prefix_id,
+                    account_id=acount_id)
     session.add(new_name)
     session.commit()
     return(new_name)
@@ -102,10 +103,23 @@ def report_global_score(session,account_id):
         global_score=global_score+row.value()
     return(global_score)
 
-        
-
 def add_score(session,account_id,season_id):
     new_score = Score(account_id=account_id,season_id=season_id,value=value)
     session.add(new_score)
     session.commit()
     return(new_score)
+
+def give_random_name(session):
+    adjective_max = session.query(func.max(Adjective.id)).scalar()
+    color_max = session.query(func.max(Color.id)).scalar()
+    noun_max = session.query(func.max(Noun.id)).scalar()
+    adjective_rand=random.randint(0,adjective_max)
+    color_rand = random.randint(0,color_max)
+    noun_rand = random.randit(0,noun_max)
+    return([adjective_rand,color_rand,noun_rand])
+
+def id2name(session,adjective_id,color_id,noun_id):
+    adjective_q =session.query(Adjective).filter(Adjective.id==adjective.id)
+    color_q = session.query(Color).filter(Color.id==color.id)
+    noun_q = session.query(Noun).filter(Noun.id==noun.id)
+    return("%s%s%s" % (adjective_q.first().text,color_q.first().text,noun_q.firsfirst().text))
