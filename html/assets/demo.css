@@ -98,7 +98,11 @@ ul li{
     }
 
 }
+h2
+{
+font-color: red;
 
+}
 .main-content{
     margin-bottom: 75px;
 }
