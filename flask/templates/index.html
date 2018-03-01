@@ -1,0 +1,44 @@
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+                <title>PokePrefix</title>
+                        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/demo.css') }}">
+                            <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/form-labels-on-top.css') }}">
+                    </head>
+                        <body>
+
+                         <header>
+                         <h1>PokePrefix !</h1>
+                         </header>
+                         <body>
+                         <div class="custom1">
+                         <a href="https://fontmeme.com/pokemon-font/"><img src="https://fontmeme.com/permalink/180224/bc7e37441d90e8cddac3da269b4e3960.png" alt="pokemon-font" border="0"></a>
+			 <h1>Hello, {{ inetnum }}  !</h1>
+			 <h1><p id="pokeprefix"></p></h1>
+                         <h1>That's a new Pokeprefix !</h1>
+                         <h1>You have gained 50 points</h1>
+    <script>
+    var x = document.getElementById("pokeprefix");
+
+    function getLocation() {
+        if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+     }
+
+    function showPosition(position) {
+           x.innerHTML = "Latitude: " + position.coords.latitude + 
+          "<br>Longitude: " + position.coords.longitude;
+        }
+
+     getLocation()
+      </script>
+
+
+                         </div>
+                         </body>
+
+                         </html>
